@@ -156,7 +156,9 @@ export default async function Footer() {
           <Text className="txt-compact-small">
             © {new Date().getFullYear()} Megtech. All rights reserved.
           </Text>
-          <MedusaCTA />
+          <Text className="txt-compact-small">
+            made with &lt;3 by Megtech
+          </Text>
         </div>
       </div>
     </footer>

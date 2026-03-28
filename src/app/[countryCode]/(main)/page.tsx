@@ -5,6 +5,7 @@ import Hero from "@modules/home/components/hero"
 import CategoriesSection from "@modules/home/components/categories"
 import PromotionalSection from "@modules/home/components/promotional"
 import TestimonialsSection from "@modules/home/components/testimonials"
+import LatestProducts from "@modules/home/components/latest-products"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
@@ -27,7 +28,8 @@ export default async function Home(props: {
     fields: "id, handle, title",
   })
 
-  if (!collections || !region) {
+  // We proceed even if collections are missing to still show LatestProducts
+  if (!region) {
     return null
   }
 
@@ -35,6 +37,7 @@ export default async function Home(props: {
     <>
       <Hero />
       <CategoriesSection />
+      <LatestProducts region={region} />
       <div className="bg-zinc-950">
         <ul className="flex flex-col gap-x-6 group">
           <FeaturedProducts collections={collections} region={region} />
