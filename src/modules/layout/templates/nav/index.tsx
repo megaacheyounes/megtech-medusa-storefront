@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import Image from "next/image"
 
 import { listRegions } from "@lib/data/regions"
 import { listLocales } from "@lib/data/locales"
@@ -28,11 +29,10 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="hover:text-brand uppercase flex items-center gap-2"
+              className="hover:opacity-80 transition-opacity flex items-center gap-2"
               data-testid="nav-store-link"
             >
-              <div className="w-8 h-8 bg-brand rounded-sm flex items-center justify-center text-zinc-950 font-black text-xl italic">M</div>
-              <span className="font-black text-xl tracking-tight text-white">MEGTECH</span>
+              <Image src="/megtech_title_horizontal.png" alt="Megtech" width={180} height={36} className="h-8 w-auto" />
             </LocalizedClientLink>
           </div>
 
