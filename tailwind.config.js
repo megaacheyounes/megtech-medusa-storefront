@@ -33,6 +33,11 @@ module.exports = {
           70: "#374151",
           80: "#1F2937",
           90: "#111827",
+        brand: {
+          DEFAULT: "#76b900",
+          hover: "#87d300",
+          light: "#a8e03f",
+          dark: "#578700"
         },
       },
       borderRadius: {
