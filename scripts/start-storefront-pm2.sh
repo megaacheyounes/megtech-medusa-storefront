@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd /home/megtech-storefront
+export NODE_ENV=production
+
+exec corepack yarn start

@@ -4,6 +4,10 @@ import "styles/globals.css"
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
+  title: {
+    default: "Megtech Store",
+    template: "%s | Megtech Store",
+  },
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
