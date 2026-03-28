@@ -12,21 +12,28 @@ export default async function Footer() {
   const productCategories = await listCategories()
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
+    <footer className="border-t border-zinc-800 w-full bg-zinc-950">
       <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
+        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-20 lg:py-32">
+          <div className="max-w-[300px]">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
+              className="flex items-center gap-2 mb-4"
             >
-              Medusa Store
+              <div className="w-8 h-8 bg-brand rounded-sm flex items-center justify-center text-zinc-950 font-black text-xl italic">M</div>
+              <span className="font-black text-xl tracking-tight text-white uppercase">MEGTECH</span>
             </LocalizedClientLink>
+            <p className="text-sm text-zinc-400 mb-2">
+              High-performance gaming hardware, premium components, and uncompromising quality.
+            </p>
+            <p className="text-brand font-semibold italic">
+              Always adding Value.
+            </p>
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
             {productCategories && productCategories?.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
+                <span className="font-bold text-white uppercase tracking-wider text-xs">
                   Categories
                 </span>
                 <ul
@@ -47,13 +54,13 @@ export default async function Footer() {
 
                     return (
                       <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
+                        className="flex flex-col gap-2 text-zinc-400 txt-small"
                         key={c.id}
                       >
                         <LocalizedClientLink
                           className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
+                            "hover:text-brand transition-colors",
+                            children && "txt-small-plus text-zinc-200"
                           )}
                           href={`/categories/${c.handle}`}
                           data-testid="category-link"
@@ -66,7 +73,7 @@ export default async function Footer() {
                               children.map((child) => (
                                 <li key={child.id}>
                                   <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
+                                    className="hover:text-brand transition-colors"
                                     href={`/categories/${child.handle}`}
                                     data-testid="category-link"
                                   >
@@ -84,12 +91,12 @@ export default async function Footer() {
             )}
             {collections && collections.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
+                <span className="font-bold text-white uppercase tracking-wider text-xs">
                   Collections
                 </span>
                 <ul
                   className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
+                    "grid grid-cols-1 gap-2 text-zinc-400 txt-small",
                     {
                       "grid-cols-2": (collections?.length || 0) > 3,
                     }
@@ -98,7 +105,7 @@ export default async function Footer() {
                   {collections?.slice(0, 6).map((c) => (
                     <li key={c.id}>
                       <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
+                        className="hover:text-brand transition-colors"
                         href={`/collections/${c.handle}`}
                       >
                         {c.title}
@@ -109,47 +116,49 @@ export default async function Footer() {
               </div>
             )}
             <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
+              <span className="font-bold text-white uppercase tracking-wider text-xs">Socials</span>
+              <ul className="grid grid-cols-1 gap-y-2 text-zinc-400 txt-small">
                 <li>
                   <a
-                    href="https://github.com/medusajs"
+                    href="https://twitter.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+                    className="hover:text-brand transition-colors"
                   >
-                    GitHub
+                    Twitter / X
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://docs.medusajs.com"
+                    href="https://discord.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+                    className="hover:text-brand transition-colors"
                   >
-                    Documentation
+                    Discord
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://github.com/medusajs/nextjs-starter-medusa"
+                    href="https://youtube.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+                    className="hover:text-brand transition-colors"
                   >
-                    Source code
+                    YouTube
                   </a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
+        <div className="flex w-full mb-16 justify-between items-center text-zinc-500 border-t border-zinc-800 pt-8">
           <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
+            © {new Date().getFullYear()} Megtech. All rights reserved.
           </Text>
-          <MedusaCTA />
+          <Text className="txt-compact-small">
+            made with &lt;3 by Megtech
+          </Text>
         </div>
       </div>
     </footer>

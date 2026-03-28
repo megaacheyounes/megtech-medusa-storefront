@@ -2,13 +2,17 @@ import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
+import CategoriesSection from "@modules/home/components/categories"
+import PromotionalSection from "@modules/home/components/promotional"
+import TestimonialsSection from "@modules/home/components/testimonials"
+import LatestProducts from "@modules/home/components/latest-products"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Megtech Store | Always Adding Value",
   description:
-    "A performant frontend ecommerce starter template with Next.js 15 and Medusa.",
+    "High-performance gaming hardware, premium components, and uncompromising quality.",
 }
 
 export default async function Home(props: {
@@ -24,18 +28,23 @@ export default async function Home(props: {
     fields: "id, handle, title",
   })
 
-  if (!collections || !region) {
+  // We proceed even if collections are missing to still show LatestProducts
+  if (!region) {
     return null
   }
 
   return (
     <>
       <Hero />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
+      <CategoriesSection />
+      <LatestProducts region={region} />
+      <div className="bg-zinc-950">
+        <ul className="flex flex-col gap-x-6 group">
           <FeaturedProducts collections={collections} region={region} />
         </ul>
       </div>
+      <PromotionalSection />
+      <TestimonialsSection />
     </>
   )
 }
