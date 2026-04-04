@@ -1,36 +1,54 @@
-import { Button } from "@medusajs/ui"
+import { Button, Heading } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import type { Dictionary } from "@/i18n/types"
 
-const Hero = () => {
+const Hero = ({ dict }: { dict: Dictionary }) => {
+  const h = dict.home.hero
   return (
-    <div className="h-[80vh] w-full relative bg-zinc-950 flex border-b border-zinc-800 overflow-hidden">
-      {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand/20 rounded-full blur-[128px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-brand/10 rounded-full blur-[150px] pointer-events-none" />
-      
-      <div className="content-container z-10 flex flex-col justify-center items-start text-left h-full">
-        <div className="max-w-3xl flex flex-col gap-6">
-          <span className="text-brand font-bold uppercase tracking-[0.2em] text-sm animate-fade-in-top">
-            Megtech Official Store
-          </span>
-          <h1 className="text-5xl md:text-7xl leading-tight text-white font-black uppercase tracking-tighter">
-            Unleash Ultimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-lime-300">Performance</span>
-          </h1>
-          <p className="text-lg md:text-xl text-zinc-400 font-normal max-w-2xl leading-relaxed">
-            Explore the next generation of CPUs, GPUs, and custom gaming laptops built for absolute domination. Always adding Value to your setup.
-          </p>
-          <div className="flex items-center gap-4 mt-4">
-            <LocalizedClientLink href="/store">
-              <Button variant="primary" className="bg-brand hover:bg-brand-hover text-zinc-950 font-bold px-8 py-3 rounded-sm h-12 w-40 text-base">
-                Shop Hardware
-              </Button>
-            </LocalizedClientLink>
-            <LocalizedClientLink href="/categories/laptops">
-              <Button variant="secondary" className="bg-transparent border border-zinc-700 hover:border-brand hover:text-brand text-zinc-300 font-bold px-8 py-3 rounded-sm h-12 text-base transition-colors">
-                View Laptops
-              </Button>
-            </LocalizedClientLink>
-          </div>
+    <div className="relative w-full overflow-hidden bg-white border-b border-ui-border-base">
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-50/50 via-white to-white"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-white to-transparent"></div>
+      </div>
+
+      <div className="content-container relative z-10 pt-32 pb-24 small:pt-48 small:pb-32 flex flex-col items-center text-center px-4">
+        <div className="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 border border-green-100 text-brand text-sm font-medium">
+          <span className="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+          <span>{h.badge}</span>
+        </div>
+
+        <Heading
+          level="h1"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-ui-fg-base max-w-4xl mb-6"
+        >
+          {h.headline}
+          <br className="hidden sm:block" />
+          <span className="text-brand">{h.headlineHighlight}</span>{" "}
+          {dict.locale === "en" ? "Affordable." : ""}
+        </Heading>
+
+        <p className="text-lg md:text-xl text-ui-fg-subtle max-w-2xl font-normal mb-10 leading-relaxed">
+          {h.subtext}
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <LocalizedClientLink href="/store" className="w-full sm:w-auto">
+            <Button
+              size="large"
+              className="w-full sm:w-auto bg-brand hover:bg-green-700 text-white rounded-full font-medium px-8"
+            >
+              {h.primaryCTA}
+            </Button>
+          </LocalizedClientLink>
+          <LocalizedClientLink href="/store" className="w-full sm:w-auto">
+            <Button
+              size="large"
+              variant="secondary"
+              className="w-full sm:w-auto rounded-full font-medium"
+            >
+              {h.secondaryCTA}
+            </Button>
+          </LocalizedClientLink>
         </div>
       </div>
     </div>

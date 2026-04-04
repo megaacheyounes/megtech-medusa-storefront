@@ -1,48 +1,33 @@
-import React from "react"
+import { Quote } from "lucide-react"
+import type { Dictionary } from "@/i18n/types"
 
-const TESTIMONIALS = [
-  {
-    author: "Alex 'Viper' Chen",
-    role: "Pro Esports Player",
-    quote: "Megtech hardware gave me the frame rate stability I needed to compete at the highest tier. Absolutely zero bottlenecks during tournament play."
-  },
-  {
-    author: "Sarah Jenkins",
-    role: "3D Artist & Streamer",
-    quote: "Rendering times cut entirely in half. The multi-core processor I got here is a beast. 'Always Adding Value' is an understatement."
-  },
-  {
-    author: "Marcus Rivera",
-    role: "Hardware Enthusiast",
-    quote: "The cooling solutions and factory clock speeds are insane out of the box. Megtech is my permanent go-to for upgrades from now on."
-  }
-]
-
-const TestimonialsSection = () => {
+const Testimonials = ({ dict }: { dict: Dictionary }) => {
+  const t = dict.home.testimonials
   return (
-    <div className="py-24 bg-zinc-900 border-b border-zinc-800">
-      <div className="content-container flex flex-col items-center">
-        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight mb-16 text-center">
-          Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-lime-400">Professionals</span>
+    <div className="py-24 bg-white">
+      <div className="content-container mx-auto">
+        <h2 className="text-3xl font-semibold text-center mb-16 text-ui-fg-base">
+          {t.sectionTitle}
         </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-          {TESTIMONIALS.map((t, idx) => (
-            <div key={idx} className="bg-zinc-950 p-8 rounded-sm border border-zinc-800 hover:border-brand/50 transition-colors shadow-lg relative flex flex-col justify-between">
-              {/* Decorative Quote Mark */}
-              <div className="text-6xl text-brand/20 font-serif absolute top-4 left-6 pointer-events-none">"</div>
-              
-              <p className="text-zinc-300 text-lg leading-relaxed relative z-10 italic mb-8">
-                "{t.quote}"
-              </p>
-              
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {t.reviews.map((review, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col p-8 bg-ui-bg-subtle rounded-2xl border border-ui-border-base relative"
+            >
+              <Quote className="w-10 h-10 text-brand opacity-20 absolute top-6 end-6" />
+              <div className="flex-1">
+                <p className="text-ui-fg-base text-lg leading-relaxed mb-8 italic">
+                  "{review.text}"
+                </p>
+              </div>
               <div className="flex items-center gap-4 mt-auto">
-                <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center font-bold text-brand uppercase text-lg border border-zinc-700">
-                  {t.author.charAt(0)}
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-brand font-bold text-lg">
+                  {review.name.charAt(0)}
                 </div>
                 <div>
-                  <h4 className="text-white font-bold">{t.author}</h4>
-                  <p className="text-brand text-sm">{t.role}</p>
+                  <h4 className="font-semibold text-ui-fg-base">{review.name}</h4>
+                  <span className="text-sm text-ui-fg-subtle">{review.location}</span>
                 </div>
               </div>
             </div>
@@ -53,4 +38,4 @@ const TestimonialsSection = () => {
   )
 }
 
-export default TestimonialsSection
+export default Testimonials

@@ -3,17 +3,19 @@ import { Suspense } from "react"
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-
 import PaginatedProducts from "./paginated-products"
+import type { Dictionary } from "@/i18n/types"
 
 const StoreTemplate = ({
   sortBy,
   page,
   countryCode,
+  dict,
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  dict: Dictionary
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -23,16 +25,17 @@ const StoreTemplate = ({
       className="flex flex-col small:flex-row small:items-start py-6 content-container"
       data-testid="category-container"
     >
-      <RefinementList sortBy={sort} />
+      <RefinementList sortBy={sort} dict={dict} />
       <div className="w-full">
         <div className="mb-8 text-2xl-semi">
-          <h1 data-testid="store-page-title">All products</h1>
+          <h1 data-testid="store-page-title">{dict.store.allProducts}</h1>
         </div>
         <Suspense fallback={<SkeletonProductGrid />}>
           <PaginatedProducts
             sortBy={sort}
             page={pageNumber}
             countryCode={countryCode}
+            dict={dict}
           />
         </Suspense>
       </div>
