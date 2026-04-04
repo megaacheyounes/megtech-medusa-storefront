@@ -3,30 +3,46 @@
 import { Popover, PopoverPanel, Transition } from "@headlessui/react"
 import { ArrowRightMini, XMark } from "@medusajs/icons"
 import { Text, clx, useToggleState } from "@medusajs/ui"
-import { Fragment } from "react"
+import { Fragment, useTransition } from "react"
+import { useParams, usePathname, useRouter } from "next/navigation"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
-import LanguageSelect from "../language-select"
 import { HttpTypes } from "@medusajs/types"
-import { Locale } from "@lib/data/locales"
+import type { Dictionary } from "@/i18n/types"
+import { locales } from "@/i18n/types"
 
-const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Account: "/account",
-  Cart: "/cart",
+const LOCALE_LABELS: Record<string, string> = {
+  en: "English",
+  fr: "Français",
+  ar: "العربية",
 }
 
 type SideMenuProps = {
   regions: HttpTypes.StoreRegion[] | null
-  locales: Locale[] | null
-  currentLocale: string | null
+  dict: Dictionary
 }
 
-const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
+const SideMenu = ({ regions, dict }: SideMenuProps) => {
   const countryToggleState = useToggleState()
-  const languageToggleState = useToggleState()
+  const { locale, countryCode } = useParams<{ locale: string; countryCode: string }>()
+  const pathname = usePathname()
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+
+  const SideMenuItems = [
+    { name: dict.nav.home, href: "/" },
+    { name: dict.nav.store, href: "/store" },
+    { name: dict.nav.account, href: "/account" },
+    { name: dict.nav.cart, href: "/cart" },
+  ]
+
+  const handleLocaleChange = (newLocale: string) => {
+    const newPath = pathname.replace(`/${locale}/`, `/${newLocale}/`)
+    startTransition(() => {
+      router.push(newPath)
+    })
+  }
 
   return (
     <div className="h-full">
@@ -39,7 +55,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                   data-testid="nav-menu-button"
                   className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
                 >
-                  Menu
+                  {dict.nav.menu}
                 </Popover.Button>
               </div>
 
@@ -72,41 +88,42 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                       </button>
                     </div>
                     <ul className="flex flex-col gap-6 items-start justify-start">
-                      {Object.entries(SideMenuItems).map(([name, href]) => {
-                        return (
-                          <li key={name}>
-                            <LocalizedClientLink
-                              href={href}
-                              className="text-3xl leading-10 hover:text-ui-fg-disabled"
-                              onClick={close}
-                              data-testid={`${name.toLowerCase()}-link`}
-                            >
-                              {name}
-                            </LocalizedClientLink>
-                          </li>
-                        )
-                      })}
+                      {SideMenuItems.map(({ name, href }) => (
+                        <li key={href}>
+                          <LocalizedClientLink
+                            href={href}
+                            className="text-3xl leading-10 hover:text-ui-fg-disabled"
+                            onClick={close}
+                          >
+                            {name}
+                          </LocalizedClientLink>
+                        </li>
+                      ))}
                     </ul>
                     <div className="flex flex-col gap-y-6">
-                      {!!locales?.length && (
-                        <div
-                          className="flex justify-between"
-                          onMouseEnter={languageToggleState.open}
-                          onMouseLeave={languageToggleState.close}
-                        >
-                          <LanguageSelect
-                            toggleState={languageToggleState}
-                            locales={locales}
-                            currentLocale={currentLocale}
-                          />
-                          <ArrowRightMini
-                            className={clx(
-                              "transition-transform duration-150",
-                              languageToggleState.state ? "-rotate-90" : ""
-                            )}
-                          />
+                      <div className="flex flex-col gap-y-2">
+                        <span className="txt-compact-small text-ui-fg-on-color/70">
+                          {dict.common.language}
+                        </span>
+                        <div className="flex gap-x-2 flex-wrap gap-y-2">
+                          {locales.map((loc) => (
+                            <button
+                              key={loc}
+                              onClick={() => { handleLocaleChange(loc); close() }}
+                              disabled={isPending}
+                              className={clx(
+                                "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                                locale === loc
+                                  ? "bg-white text-black border-white"
+                                  : "bg-transparent text-white border-white/40 hover:border-white"
+                              )}
+                            >
+                              {LOCALE_LABELS[loc]}
+                            </button>
+                          ))}
                         </div>
-                      )}
+                      </div>
+
                       <div
                         className="flex justify-between"
                         onMouseEnter={countryToggleState.open}
@@ -126,8 +143,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                         />
                       </div>
                       <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Medusa Store. All rights
-                        reserved.
+                        {dict.footer.copyright}
                       </Text>
                     </div>
                   </div>

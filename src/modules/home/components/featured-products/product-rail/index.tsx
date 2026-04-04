@@ -4,13 +4,16 @@ import { Text } from "@medusajs/ui"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
+import type { Dictionary } from "@/i18n/types"
 
 export default async function ProductRail({
   collection,
   region,
+  dict,
 }: {
   collection: HttpTypes.StoreCollection
   region: HttpTypes.StoreRegion
+  dict: Dictionary
 }) {
   const {
     response: { products: pricedProducts },
@@ -31,14 +34,14 @@ export default async function ProductRail({
       <div className="flex justify-between mb-8">
         <Text className="txt-xlarge">{collection.title}</Text>
         <InteractiveLink href={`/collections/${collection.handle}`}>
-          View all
+          {dict.common.viewAll}
         </InteractiveLink>
       </div>
-      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">
+      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-8">
         {pricedProducts &&
           pricedProducts.map((product) => (
             <li key={product.id}>
-              <ProductPreview product={product} region={region} isFeatured />
+              <ProductPreview product={product} region={region} isFeatured dict={dict} />
             </li>
           ))}
       </ul>

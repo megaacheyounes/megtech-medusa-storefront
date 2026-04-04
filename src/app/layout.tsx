@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default function RootLayout(props: {
+  children: React.ReactNode
+  params?: { locale?: string }
+}) {
+  // Note: lang/dir are set per-locale in the [locale] layout
   return (
     <html lang="en" data-mode="light">
       <body>

@@ -1,12 +1,11 @@
 import { listCategories } from "@lib/data/categories"
 import { listCollections } from "@lib/data/collections"
 import { Text, clx } from "@medusajs/ui"
-
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import MedusaCTA from "@modules/layout/components/medusa-cta"
 import { MapPin, Phone } from "lucide-react"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import type { Dictionary } from "@/i18n/types"
 
-export default async function Footer() {
+export default async function Footer({ dict }: { dict: Dictionary }) {
   const { collections } = await listCollections({
     fields: "*products",
   })
@@ -24,20 +23,27 @@ export default async function Footer() {
               Megtech
             </LocalizedClientLink>
             <p className="text-ui-fg-subtle text-sm md:w-5/6 leading-relaxed">
-              Premium used tech, imported directly from Dubai. Fully tested, quality-assured, and delivered nationwide across Algeria.
+              {dict.footer.description}
             </p>
             <div className="flex flex-col gap-3 mt-2 text-ui-fg-subtle text-sm">
-              <a href="https://www.facebook.com/megtechn" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-brand transition-colors">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                <span>Facebook Page</span>
+              <a
+                href="https://www.facebook.com/megtechn"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 hover:text-brand transition-colors"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+                <span>{dict.footer.facebookPage}</span>
               </a>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>+213 (0) XX XX XX XX</span>
+                <span>{dict.footer.phone}</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
-                <span>Algiers, Algeria</span>
+                <span>{dict.footer.address}</span>
               </div>
             </div>
           </div>
@@ -46,26 +52,15 @@ export default async function Footer() {
             {productCategories && productCategories?.length > 0 && (
               <div className="flex flex-col gap-y-4">
                 <span className="font-semibold text-ui-fg-base">
-                  Categories
+                  {dict.footer.categoriesHeading}
                 </span>
-                <ul
-                  className="grid grid-cols-1 gap-3"
-                  data-testid="footer-categories"
-                >
+                <ul className="grid grid-cols-1 gap-3" data-testid="footer-categories">
                   {productCategories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return null
-                    }
-
+                    if (c.parent_category) return null
                     return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle text-sm"
-                        key={c.id}
-                      >
+                      <li className="flex flex-col gap-2 text-ui-fg-subtle text-sm" key={c.id}>
                         <LocalizedClientLink
-                          className={clx(
-                            "hover:text-brand transition-colors",
-                          )}
+                          className="hover:text-brand transition-colors"
                           href={`/categories/${c.handle}`}
                           data-testid="category-link"
                         >
@@ -81,13 +76,9 @@ export default async function Footer() {
             {collections && collections.length > 0 && (
               <div className="flex flex-col gap-y-4">
                 <span className="font-semibold text-ui-fg-base">
-                  Collections
+                  {dict.footer.collectionsHeading}
                 </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-3 text-ui-fg-subtle text-sm",
-                  )}
-                >
+                <ul className="grid grid-cols-1 gap-3 text-ui-fg-subtle text-sm">
                   {collections?.slice(0, 6).map((c) => (
                     <li key={c.id}>
                       <LocalizedClientLink
@@ -103,30 +94,16 @@ export default async function Footer() {
             )}
 
             <div className="flex flex-col gap-y-4">
-              <span className="font-semibold text-ui-fg-base">Help & Policies</span>
+              <span className="font-semibold text-ui-fg-base">{dict.footer.helpHeading}</span>
               <ul className="grid grid-cols-1 gap-y-3 text-ui-fg-subtle text-sm">
                 <li>
-                  <LocalizedClientLink
-                    href="/returns"
-                    className="hover:text-brand transition-colors"
-                  >
-                    Returns / Replacement Policy
+                  <LocalizedClientLink href="/returns" className="hover:text-brand transition-colors">
+                    {dict.footer.returnsLink}
                   </LocalizedClientLink>
                 </li>
                 <li>
-                  <LocalizedClientLink
-                    href="/faq"
-                    className="hover:text-brand transition-colors"
-                  >
-                    FAQ
-                  </LocalizedClientLink>
-                </li>
-                <li>
-                  <LocalizedClientLink
-                    href="/contact"
-                    className="hover:text-brand transition-colors"
-                  >
-                    Contact Us
+                  <LocalizedClientLink href="/faq" className="hover:text-brand transition-colors">
+                    {dict.footer.faqLink}
                   </LocalizedClientLink>
                 </li>
               </ul>
@@ -135,13 +112,9 @@ export default async function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row w-full mb-16 justify-between items-center text-ui-fg-muted pt-8 border-t border-ui-border-base">
-          <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Megtech. All rights reserved.
-          </Text>
+          <Text className="txt-compact-small">{dict.footer.copyright}</Text>
           <div className="mt-4 md:mt-0">
-            <Text className="txt-compact-small">
-              Made with ❤️ in Algeria
-            </Text>
+            <Text className="txt-compact-small">{dict.footer.madeWith}</Text>
           </div>
         </div>
       </div>

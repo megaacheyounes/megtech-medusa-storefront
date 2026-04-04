@@ -1,19 +1,14 @@
 import { Suspense } from "react"
 
 import { listRegions } from "@lib/data/regions"
-import { listLocales } from "@lib/data/locales"
-import { getLocale } from "@lib/data/locale-actions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
+import type { Dictionary } from "@/i18n/types"
 
-export default async function Nav() {
-  const [regions, locales, currentLocale] = await Promise.all([
-    listRegions().then((regions: StoreRegion[]) => regions),
-    listLocales(),
-    getLocale(),
-  ])
+export default async function Nav({ dict }: { dict: Dictionary }) {
+  const regions = await listRegions().then((regions: StoreRegion[]) => regions)
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
@@ -21,17 +16,17 @@ export default async function Nav() {
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full">
-              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
+              <SideMenu regions={regions} dict={dict} />
             </div>
           </div>
 
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase font-bold tracking-tight"
               data-testid="nav-store-link"
             >
-              Megtech Store
+              {dict.nav.storeName}
             </LocalizedClientLink>
           </div>
 
@@ -42,7 +37,7 @@ export default async function Nav() {
                 href="/account"
                 data-testid="nav-account-link"
               >
-                Account
+                {dict.nav.account}
               </LocalizedClientLink>
             </div>
             <Suspense
@@ -52,11 +47,11 @@ export default async function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  Cart (0)
+                  {dict.nav.cartWithCount(0)}
                 </LocalizedClientLink>
               }
             >
-              <CartButton />
+              <CartButton dict={dict} />
             </Suspense>
           </div>
         </nav>
