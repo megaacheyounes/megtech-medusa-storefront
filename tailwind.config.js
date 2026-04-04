@@ -21,6 +21,7 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        brand: "#16a34a",
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
