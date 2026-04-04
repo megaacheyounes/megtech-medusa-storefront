@@ -32,7 +32,7 @@ const fr: Dictionary = {
     menu: "Menu",
     home: "Accueil",
     store: "Boutique",
-    cartWithCount: (count) => `Panier (${count})`,
+    cartLabel: "Panier",
   },
   home: {
     hero: {

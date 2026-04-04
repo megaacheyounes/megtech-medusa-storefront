@@ -32,7 +32,7 @@ const ar: Dictionary = {
     menu: "القائمة",
     home: "الرئيسية",
     store: "المتجر",
-    cartWithCount: (count) => `السلة (${count})`,
+    cartLabel: "السلة",
   },
   home: {
     hero: {

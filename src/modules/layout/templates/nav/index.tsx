@@ -47,7 +47,7 @@ export default async function Nav({ dict }: { dict: Dictionary }) {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  {dict.nav.cartWithCount(0)}
+                  {dict.nav.cartLabel}
                 </LocalizedClientLink>
               }
             >

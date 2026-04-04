@@ -84,7 +84,7 @@ const CartDropdown = ({
             href="/cart"
             data-testid="nav-cart-link"
           >
-            {dict.nav.cartWithCount(totalItems)}
+            {dict.nav.cartLabel} ({totalItems})
           </LocalizedClientLink>
         </PopoverButton>
         <Transition

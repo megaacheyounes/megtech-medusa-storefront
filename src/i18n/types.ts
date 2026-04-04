@@ -36,7 +36,7 @@ export interface Dictionary {
     menu: string
     home: string
     store: string
-    cartWithCount: (count: number) => string
+    cartLabel: string // e.g. "Cart" — count appended by component
   }
   home: {
     hero: {
