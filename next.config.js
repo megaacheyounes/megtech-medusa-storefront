@@ -11,6 +11,8 @@ const S3_PATHNAME = process.env.MEDUSA_CLOUD_S3_PATHNAME
 /**
  * @type {import('next').NextConfig}
  */
+const path = require("path")
+
 const nextConfig = {
   reactStrictMode: true,
   logging: {
@@ -23,6 +25,10 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  webpack: (config) => {
+    config.resolve.alias["@"] = path.join(__dirname, "src")
+    return config
   },
   images: {
     remotePatterns: [
