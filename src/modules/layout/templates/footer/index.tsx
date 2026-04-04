@@ -12,32 +12,32 @@ export default async function Footer() {
   const productCategories = await listCategories()
 
   return (
-    <footer className="border-t border-zinc-800 w-full bg-zinc-950">
+    <footer className="border-t border-neutral-200 w-full bg-neutral-50">
       <div className="content-container flex flex-col w-full">
         <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-20 lg:py-32">
           <div className="max-w-[300px]">
             <LocalizedClientLink
               href="/"
-              className="flex items-center gap-2 mb-4"
+              className="flex items-center gap-2 mb-4 hover:opacity-70 transition-opacity"
             >
-              <div className="w-8 h-8 bg-brand rounded-sm flex items-center justify-center text-zinc-950 font-black text-xl italic">M</div>
-              <span className="font-black text-xl tracking-tight text-white uppercase">MEGTECH</span>
+              <div className="w-8 h-8 flex items-center justify-center text-black border border-black font-black text-xl italic">M</div>
+              <span className="font-black text-xl tracking-tight text-black uppercase">MEGTECH</span>
             </LocalizedClientLink>
-            <p className="text-sm text-zinc-400 mb-2">
+            <p className="text-sm text-neutral-500 mb-2">
               High-performance gaming hardware, premium components, and uncompromising quality.
             </p>
-            <p className="text-brand font-semibold italic">
+            <p className="text-black font-semibold italic">
               Always adding Value.
             </p>
           </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
+          <div className="text-sm gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
             {productCategories && productCategories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="font-bold text-white uppercase tracking-wider text-xs">
+              <div className="flex flex-col gap-y-4">
+                <span className="font-bold text-black uppercase tracking-wider text-xs">
                   Categories
                 </span>
                 <ul
-                  className="grid grid-cols-1 gap-2"
+                  className="grid grid-cols-1 gap-3"
                   data-testid="footer-categories"
                 >
                   {productCategories?.slice(0, 6).map((c) => {
@@ -54,13 +54,13 @@ export default async function Footer() {
 
                     return (
                       <li
-                        className="flex flex-col gap-2 text-zinc-400 txt-small"
+                        className="flex flex-col gap-2 text-neutral-500"
                         key={c.id}
                       >
                         <LocalizedClientLink
                           className={clx(
-                            "hover:text-brand transition-colors",
-                            children && "txt-small-plus text-zinc-200"
+                            "hover:text-black transition-colors font-medium",
+                            children && "text-neutral-800"
                           )}
                           href={`/categories/${c.handle}`}
                           data-testid="category-link"
@@ -68,12 +68,12 @@ export default async function Footer() {
                           {c.name}
                         </LocalizedClientLink>
                         {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
+                          <ul className="grid grid-cols-1 ml-3 gap-2 mt-1">
                             {children &&
                               children.map((child) => (
                                 <li key={child.id}>
                                   <LocalizedClientLink
-                                    className="hover:text-brand transition-colors"
+                                    className="hover:text-black transition-colors"
                                     href={`/categories/${child.handle}`}
                                     data-testid="category-link"
                                   >
@@ -90,13 +90,13 @@ export default async function Footer() {
               </div>
             )}
             {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="font-bold text-white uppercase tracking-wider text-xs">
+              <div className="flex flex-col gap-y-4">
+                <span className="font-bold text-black uppercase tracking-wider text-xs">
                   Collections
                 </span>
                 <ul
                   className={clx(
-                    "grid grid-cols-1 gap-2 text-zinc-400 txt-small",
+                    "grid grid-cols-1 gap-3 text-neutral-500 font-medium",
                     {
                       "grid-cols-2": (collections?.length || 0) > 3,
                     }
@@ -105,7 +105,7 @@ export default async function Footer() {
                   {collections?.slice(0, 6).map((c) => (
                     <li key={c.id}>
                       <LocalizedClientLink
-                        className="hover:text-brand transition-colors"
+                        className="hover:text-black transition-colors"
                         href={`/collections/${c.handle}`}
                       >
                         {c.title}
@@ -115,15 +115,15 @@ export default async function Footer() {
                 </ul>
               </div>
             )}
-            <div className="flex flex-col gap-y-2">
-              <span className="font-bold text-white uppercase tracking-wider text-xs">Socials</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-zinc-400 txt-small">
+            <div className="flex flex-col gap-y-4">
+              <span className="font-bold text-black uppercase tracking-wider text-xs">Socials</span>
+              <ul className="grid grid-cols-1 gap-y-3 text-neutral-500 font-medium">
                 <li>
                   <a
                     href="https://twitter.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-brand transition-colors"
+                    className="hover:text-black transition-colors"
                   >
                     Twitter / X
                   </a>
@@ -133,7 +133,7 @@ export default async function Footer() {
                     href="https://discord.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-brand transition-colors"
+                    className="hover:text-black transition-colors"
                   >
                     Discord
                   </a>
@@ -143,7 +143,7 @@ export default async function Footer() {
                     href="https://youtube.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-brand transition-colors"
+                    className="hover:text-black transition-colors"
                   >
                     YouTube
                   </a>
@@ -152,11 +152,11 @@ export default async function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between items-center text-zinc-500 border-t border-zinc-800 pt-8">
-          <Text className="txt-compact-small">
+        <div className="flex w-full mb-16 justify-between items-center text-neutral-400 border-t border-neutral-200 pt-8 font-medium">
+          <Text className="text-sm">
             © {new Date().getFullYear()} Megtech. All rights reserved.
           </Text>
-          <Text className="txt-compact-small">
+          <Text className="text-sm">
             made with &lt;3 by Megtech
           </Text>
         </div>

@@ -44,23 +44,23 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             name={name}
             placeholder=" "
             required={required}
-            className="pt-4 pb-1 block w-full h-11 px-4 mt-0 bg-zinc-900 border rounded-sm appearance-none focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand border-zinc-700 hover:bg-zinc-800 text-white transition-colors"
+            className="pt-4 pb-1 block w-full h-12 px-4 mt-0 bg-white border border-neutral-300 rounded-sm appearance-none focus:outline-none focus:ring-1 focus:ring-black focus:border-black hover:border-black text-black transition-colors"
             {...props}
             ref={inputRef}
           />
           <label
             htmlFor={name}
             onClick={() => inputRef.current?.focus()}
-            className="flex items-center justify-center mx-3 px-1 transition-all absolute duration-300 top-3 -z-1 origin-0 text-zinc-500"
+            className="flex items-center justify-center mx-3 px-1 transition-all absolute duration-300 top-3 -z-1 origin-0 text-neutral-500"
           >
             {label}
-            {required && <span className="text-brand">*</span>}
+            {required && <span className="text-red-500 ml-1">*</span>}
           </label>
           {type === "password" && (
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="text-zinc-500 px-4 focus:outline-none transition-all duration-150 outline-none hover:text-white absolute right-0 top-3"
+              className="text-neutral-400 px-4 focus:outline-none transition-all duration-150 outline-none hover:text-black absolute right-0 top-3"
             >
               {showPassword ? <Eye /> : <EyeOff />}
             </button>

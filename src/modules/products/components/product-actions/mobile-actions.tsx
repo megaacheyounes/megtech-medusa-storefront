@@ -70,24 +70,24 @@ const MobileActions: React.FC<MobileActionsProps> = ({
           leaveTo="opacity-0"
         >
           <div
-            className="bg-zinc-950 flex flex-col gap-y-3 justify-center items-center text-large-regular p-4 h-full w-full border-t border-zinc-800"
+            className="bg-white/90 backdrop-blur-md flex flex-col gap-y-3 justify-center items-center text-lg p-4 h-full w-full border-t border-neutral-200"
             data-testid="mobile-actions"
           >
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-2 font-bold text-black">
               <span data-testid="mobile-title">{product.title}</span>
               <span>—</span>
               {selectedPrice ? (
-                <div className="flex items-end gap-x-2 text-ui-fg-base">
+                <div className="flex items-end gap-x-2 text-black">
                   {selectedPrice.price_type === "sale" && (
                     <p>
-                      <span className="line-through text-small-regular">
+                      <span className="line-through text-xs text-neutral-500">
                         {selectedPrice.original_price}
                       </span>
                     </p>
                   )}
                   <span
                     className={clx({
-                      "text-ui-fg-interactive":
+                      "text-red-500":
                         selectedPrice.price_type === "sale",
                     })}
                   >
@@ -104,7 +104,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               {!isSimple && <Button
                 onClick={open}
                 variant="secondary"
-                className="w-full !text-zinc-950"
+                className="w-full bg-neutral-100 text-black border-neutral-200"
                 data-testid="mobile-actions-button"
               >
                 <div className="flex items-center justify-between w-full">
@@ -119,7 +119,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               <Button
                 onClick={handleAddToCart}
                 disabled={!inStock || !variant}
-                className="w-full"
+                className="w-full bg-black text-white hover:bg-neutral-800"
                 isLoading={isAdding}
                 data-testid="mobile-cart-button"
               >
@@ -144,7 +144,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-700 bg-opacity-75 backdrop-blur-sm" />
+            <div className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm" />
           </Transition.Child>
 
           <div className="fixed bottom-0 inset-x-0">
@@ -152,11 +152,11 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
+                enterFrom="opacity-0 translate-y-full"
+                enterTo="opacity-100 translate-y-0"
                 leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-full"
               >
                 <Dialog.Panel
                   className="w-full h-full transform overflow-hidden text-left flex flex-col gap-y-3"
@@ -165,13 +165,13 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   <div className="w-full flex justify-end pr-6">
                     <button
                       onClick={close}
-                      className="bg-white w-12 h-12 rounded-full text-ui-fg-base flex justify-center items-center"
+                      className="bg-white border border-neutral-200 w-12 h-12 rounded-full text-black flex justify-center items-center shadow-lg"
                       data-testid="close-modal-button"
                     >
                       <X />
                     </button>
                   </div>
-                  <div className="bg-zinc-950 px-6 py-12 border-t border-zinc-800">
+                  <div className="bg-white px-6 py-12 border-t border-neutral-200 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
                     {(product.variants?.length ?? 0) > 1 && (
                       <div className="flex flex-col gap-y-6">
                         {(product.options || []).map((option) => {

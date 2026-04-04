@@ -2,6 +2,8 @@ import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
+import TrustBar from "@modules/home/components/trust-bar"
+import BrandsSection from "@modules/home/components/brands"
 import CategoriesSection from "@modules/home/components/categories"
 import PromotionalSection from "@modules/home/components/promotional"
 import TestimonialsSection from "@modules/home/components/testimonials"
@@ -34,17 +36,32 @@ export default async function Home(props: {
   }
 
   return (
-    <>
+    <div className="bg-white min-h-screen">
       <Hero />
+      <TrustBar />
+      <BrandsSection />
+      
+      {/* Editorial Category Grid */}
       <CategoriesSection />
-      <LatestProducts region={region} />
-      <div className="bg-zinc-950">
+      
+      {/* Latest Products as a clean section */ }
+      <div className="border-b border-neutral-200">
+        <LatestProducts region={region} />
+      </div>
+      
+      <PromotionalSection />
+      
+      {/* Featured Products Collection */}
+      <div className="bg-neutral-50 py-12 border-b border-neutral-200">
+        <div className="content-container mb-8">
+          <h2 className="text-4xl text-black font-black tracking-tighter">Shop Collections.</h2>
+        </div>
         <ul className="flex flex-col gap-x-6 group">
           <FeaturedProducts collections={collections} region={region} />
         </ul>
       </div>
-      <PromotionalSection />
+      
       <TestimonialsSection />
-    </>
+    </div>
   )
 }

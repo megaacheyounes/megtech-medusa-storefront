@@ -18,10 +18,10 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-zinc-950/80 backdrop-blur-md border-zinc-800">
-        <nav className="content-container txt-xsmall-plus text-zinc-300 flex items-center justify-between w-full h-full text-small-regular">
+      <header className="relative h-16 mx-auto border-b duration-200 bg-white/80 backdrop-blur-md border-neutral-200 shadow-sm">
+        <nav className="content-container text-black flex items-center justify-between w-full h-full text-sm font-medium tracking-tight">
           <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
+            <div className="h-full mt-1">
               <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
             </div>
           </div>
@@ -29,17 +29,17 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="hover:opacity-80 transition-opacity flex items-center gap-2"
+              className="hover:opacity-60 transition-opacity flex items-center gap-2"
               data-testid="nav-store-link"
             >
-              <Image src="/megtech_title_horizontal.png" alt="Megtech" width={180} height={36} className="h-8 w-auto" />
+              <span className="font-black text-xl tracking-tighter uppercase">Megtech</span>
             </LocalizedClientLink>
           </div>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
+          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end mt-1">
             <div className="hidden small:flex items-center gap-x-6 h-full">
               <LocalizedClientLink
-                className="hover:text-brand transition-colors"
+                className="hover:text-neutral-500 transition-colors"
                 href="/account"
                 data-testid="nav-account-link"
               >
@@ -49,7 +49,7 @@ export default async function Nav() {
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="hover:text-brand transition-colors flex gap-2"
+                  className="hover:text-neutral-500 transition-colors flex gap-2"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
