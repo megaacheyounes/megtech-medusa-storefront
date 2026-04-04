@@ -6,9 +6,10 @@ import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import CategoryTemplate from "@modules/categories/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import { getDictionary } from "@/i18n"
 
 type Props = {
-  params: Promise<{ category: string[]; countryCode: string }>
+  params: Promise<{ locale: string; category: string[]; countryCode: string }>
   searchParams: Promise<{
     sortBy?: SortOptions
     page?: string
@@ -44,19 +45,15 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
+  const dict = await getDictionary(params.locale)
   try {
     const productCategory = await getCategoryByHandle(params.category)
-
-    const title = productCategory.name + " | Megtech Store"
-
+    const title = `${productCategory.name} | ${dict.nav.storeName}`
     const description = productCategory.description ?? `${title} category.`
-
     return {
-      title: `${title} | Megtech Store`,
+      title,
       description,
-      alternates: {
-        canonical: `${params.category.join("/")}`,
-      },
+      alternates: { canonical: `${params.category.join("/")}` },
     }
   } catch (error) {
     notFound()

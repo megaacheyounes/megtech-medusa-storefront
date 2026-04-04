@@ -6,9 +6,10 @@ import { listRegions } from "@lib/data/regions"
 import { StoreCollection, StoreRegion } from "@medusajs/types"
 import CollectionTemplate from "@modules/collections/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import { getDictionary } from "@/i18n"
 
 type Props = {
-  params: Promise<{ handle: string; countryCode: string }>
+  params: Promise<{ locale: string; handle: string; countryCode: string }>
   searchParams: Promise<{
     page?: string
     sortBy?: SortOptions
@@ -52,18 +53,15 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
+  const dict = await getDictionary(params.locale)
   const collection = await getCollectionByHandle(params.handle)
 
-  if (!collection) {
-    notFound()
-  }
+  if (!collection) notFound()
 
-  const metadata = {
-    title: `${collection.title} | Medusa Store`,
+  return {
+    title: `${collection.title} | ${dict.nav.storeName}`,
     description: `${collection.title} collection`,
   } as Metadata
-
-  return metadata
 }
 
 export default async function CollectionPage(props: Props) {

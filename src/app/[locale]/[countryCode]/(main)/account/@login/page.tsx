@@ -1,10 +1,18 @@
 import { Metadata } from "next"
-
+import { getDictionary } from "@/i18n"
 import LoginTemplate from "@modules/account/templates/login-template"
 
-export const metadata: Metadata = {
-  title: "Sign in",
-  description: "Sign in to your Medusa Store account.",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const dict = await getDictionary(locale)
+  return {
+    title: dict.account.logIn,
+    description: `${dict.account.logIn} — ${dict.nav.storeName}`,
+  }
 }
 
 export default function Login() {

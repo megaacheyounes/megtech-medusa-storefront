@@ -10,16 +10,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout(props: {
-  children: React.ReactNode
-  params?: { locale?: string }
-}) {
-  // Note: lang/dir are set per-locale in the [locale] layout
-  return (
-    <html lang="en" data-mode="light">
-      <body>
-        <main className="relative">{props.children}</main>
-      </body>
-    </html>
-  )
+// Root layout: minimal shell. The [locale] segment provides <html lang dir>.
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return children
 }
